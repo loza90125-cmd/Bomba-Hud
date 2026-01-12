@@ -1,0 +1,58 @@
+main.lua
+local Script_Original = "https://raw.githubusercontent.com/loza90125-cmd/Bomba-Hud/main/Main.lua"
+
+-- INTERFAZ DE LOGIN
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local KeyGui = Instance.new("ScreenGui")
+KeyGui.Name = "BombaKeySystem"
+if syn and syn.protect_gui then syn.protect_gui(KeyGui) end
+KeyGui.Parent = CoreGui
+
+local MainFrame = Instance.new("Frame", KeyGui)
+MainFrame.Size = UDim2.new(0, 350, 0, 180)
+MainFrame.Position = UDim2.new(0.5, -175, 0.5, -90)
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 10)
+Instance.new("UIStroke", MainFrame).Color = Color3.fromRGB(255, 45, 45); Instance.new("UIStroke", MainFrame).Thickness = 2
+
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Text = "KEY DE 12 HORAS"
+Title.Size = UDim2.new(1, 0, 0, 40); Title.TextColor3 = Color3.new(1,1,1)
+Title.BackgroundTransparency = 1; Title.Font = Enum.Font.GothamBlack; Title.TextSize = 18
+
+local InputBox = Instance.new("TextBox", MainFrame)
+InputBox.Size = UDim2.new(0.8, 0, 0, 40); InputBox.Position = UDim2.new(0.1, 0, 0.35, 0)
+InputBox.PlaceholderText = "Pega la Key aquí..."
+InputBox.BackgroundColor3 = Color3.fromRGB(30, 30, 35); InputBox.TextColor3 = Color3.new(1,1,1)
+Instance.new("UICorner", InputBox)
+
+local BtnGet = Instance.new("TextButton", MainFrame)
+BtnGet.Text = "OBTENER KEY"; BtnGet.Size = UDim2.new(0.35, 0, 0, 35); BtnGet.Position = UDim2.new(0.1, 0, 0.7, 0)
+BtnGet.BackgroundColor3 = Color3.fromRGB(60, 60, 60); BtnGet.TextColor3 = Color3.new(1,1,1); BtnGet.Font = Enum.Font.GothamBold
+Instance.new("UICorner", BtnGet)
+
+local BtnEntrar = Instance.new("TextButton", MainFrame)
+BtnEntrar.Text = "ENTRAR"; BtnEntrar.Size = UDim2.new(0.35, 0, 0, 35); BtnEntrar.Position = UDim2.new(0.55, 0, 0.7, 0)
+BtnEntrar.BackgroundColor3 = Color3.fromRGB(255, 45, 45); BtnEntrar.TextColor3 = Color3.new(1,1,1); BtnEntrar.Font = Enum.Font.GothamBold
+Instance.new("UICorner", BtnEntrar)
+
+-- LÓGICA
+BtnGet.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard(Link_Dinero)
+        BtnGet.Text = "¡LINK COPIADO!"
+        task.wait(2); BtnGet.Text = "OBTENER KEY"
+    end
+end)
+
+BtnEntrar.MouseButton1Click:Connect(function()
+    if InputBox.Text == Clave_Actual then
+        KeyGui:Destroy()
+        loadstring(game:HttpGet(Script_Original))()
+    else
+        Title.Text = "KEY INCORRECTA"; Title.TextColor3 = Color3.new(1,0,0)
+        task.wait(1.5); Title.Text = "KEY DE 12 HORAS"; Title.TextColor3 = Color3.new(1,1,1)
+    end
+end)
+
